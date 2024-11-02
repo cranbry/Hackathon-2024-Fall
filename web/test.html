@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMCC AI Assistant</title>
+
+    <!-- Css stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Box Icons Link -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+    <!-- Remix Icons Link -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Google Fonts Link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+        /* Chat Container Styles */
+        .chat-container {
+            display: none; /* Initially hidden */
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 350px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+
+        #messages {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .user-message {
+            background-color: #007bff;
+            color: white;
+            padding: 8px;
+            border-radius: 5px;
+            margin: 5px 0;
+            max-width: 80%;
+            align-self: flex-end;
+            display: inline-block;
+        }
+
+        #user-input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            resize: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .send-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .send-btn:hover {
+            background-color: #0056b3;
+        }
+
+        #close-chat {
+            background: transparent;
+            border: none;
+            font-size: 16px;
+            color: #888;
+            cursor: pointer;
+            float: right;
+        }
+
+        #close-chat:hover {
+            color: #ff5b5b;
+        }
+        .content-container {
+        display: flex;
+        align-items: flex-start; /* Align items to the top */
+        justify-content: space-between; /* Space out content to the edges */
+        padding: 20px 5%; /* Add padding around the container */
+    }
+
+    .main-content {
+        flex: 1;
+        margin-top: 20px; /* Adjust the top margin if you need more spacing */
+        text-align: left; /* Keeps the text aligned to the left */
+    }
+
+    .gif-container {
+        /* flex-shrink: 0; */
+        margin-top: 40px; /* Adjust the top margin if you need more spacing */
+        margin-right: 30px; /* Add some space from the edge if desired */
+    }
+    </style>
+</head>
+<body>
+    <!-- header -->
+    <header>
+        <a href="#" class="logo">Assistant <span>Ai</span></a>
+
+        <div class="bx bx-menu" id="menu-icon"></div>
+        <ul class="navlist">
+            <li><a href="#home">Home</a></li>
+            <li><a href="assistant.html">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Look up a File</a></li>
+        </ul>
+    </header>
+
+    <!-- hero -->
+    <section class="hero" id="home">
+        <div class="main-content" data-aos="fade-in">
+            <h4>Hi, There!</h4>
+            <h1>I'm Your AI Assistant <span>Roxy</span></h1>
+            <p>Your go-to platform for onboarding and HR inquiries.</p>
+            <div class="main-btn">
+                <button id="scroll-to-chat" class="btn" onclick="scrollToChat()">Talk to me!</button>
+            </div>
+        </div>
+        <div class="gif-container">
+            <iframe src="https://giphy.com/embed/jUJtNKKVTdIeD0XreN" width="700" height="700" frameBorder="0" allowFullScreen></iframe>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="about" id="about">
+        <div class="about-iframe" data-aos="zoom-in-down">
+            <div>
+                <iframe src="https://giphy.com/embed/ISGlFAOrYMjmfnqDJh" width="100%" height="100%" style="position:absolute" frameBorder="0" allowFullScreen></iframe>
+            </div>
+        </div>
+        <div class="about-text" data-aos="zoom-in-up">
+            <h2>I am an HR <span>Assistant <br></span> here to streamline your onboarding, and provide assistance to all staff.</h2>
+            <div class="exp-area">
+                <p class="exp">What I can do:</p>
+                <p class="exp"><span>Provide personalized onboarding information.</span></p>
+                <p class="exp"><span>Answer frequently asked questions about campus jobs.</span></p>
+                <p class="exp"><span>Guide you through necessary documents and training.</span></p>
+                <p class="exp"><span>Help with HR inquiries efficiently.</span></p>
+                <p class="exp"><span>Connect you to other resources and services.</span></p>
+            </div>
+            <a href="#" class="btn" onclick="openChatbotWithMessage()">Let me tell you about our platform.</a>
+        </div>
+    </section>
+
+    <!-- services -->
+    <section class="services" id="services">
+        <div class="center-text" data-aos="fade-down">
+            <h2>AI <span>Services</span></h2>
+        </div>
+        <div class="services-content" data-aos="zoom-in-up">
+            <div class="box box3">
+                <img src="images/s-3.svg" alt="">
+                <h3>Interactive AI tool</h3>
+                <p>Guides new staff through the onboarding process, answering questions and providing step-by-step instructions.</p>
+                <a href="#" onclick="openChatbotWithMessage('Tell me more about Main Service 1')">Learn more <i class="ri-arrow-right-line"></i></a>
+            </div>
+
+            <div class="box">
+                <img src="images/s-1.svg" alt="">
+                <h3>Customizable Dashboards</h3>
+                <p>Each employee would have a personal dashboard showcasing tasks, trainings, and upcoming deadlines tailored to their position.</p>
+                <a href="#" onclick="openChatbotWithMessage('Tell me more about Main Service 2')">Learn more <i class="ri-arrow-right-line"></i></a>
+            </div>
+
+            <div class="box box3">
+                <img src="images/s-2.svg" alt="">
+                <h3>Easy Access Docs & Forms</h3>
+                <p>Enable staff to access important documents, forms, pay stubs, and HR resources, directly from their dashboard.</p>
+                <a href="dashboard.html" >Learn more <i class="ri-arrow-right-line"></i></a>                
+            </div>
+        </div>
+    </section>
+
+    <!-- Chat Container -->
+    <div class="chat-container" id="chatbot">
+        <div class="chat-header">
+            <h3>Roxy Assistant</h3>
+            <button id="close-chat" onclick="closeChat()">×</button>
+        </div>
+        <div id="messages" class="chat-messages">
+            <!-- Messages will be dynamically inserted here -->
+        </div>
+        <div id="user-input-container" class="chat-input">
+            <textarea id="userInput" name="userInput" rows="1" required placeholder="Type your message..."></textarea>
+            <button class="send-btn" id="send-message" type="submit">Send</button>
+        </div>
+    </div>
+
+    <section>
+        <div class="center-text" data-aos="fade-down">
+            <h2>File look <span>Up</span></h2>
+        </div>
+        <div class="contact-form" data-aos="zoom-in-up">
+            <form>
+                <input type="text" placeholder="File Type" id="name" required>
+                <input type="password" placeholder="Staff Password" id="password" required>
+                <textarea name="" cols="30" rows="10" placeholder="Enter additional details about the file request" id="message" required></textarea>
+                <input type="submit" value="Message Roxy" class="send-btn" onclick="sendMail()">
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 BMCC Assistant. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // JavaScript for chat functionality
+        const chatContainer = document.getElementById('chatbot');
+        const userInput = document.getElementById('userInput');
+        const messages = document.getElementById('messages');
+
+        document.getElementById('send-message').addEventListener('click', function() {
+            const messageText = userInput.value;
+                
+            if (messageText) {
+                addMessage('You: ' + messageText, 'user-message');
+                userInput.value = ''; // Clear input
+            
+                // Sending the message to the chatbot via the endpoint
+                fetch(`./openai?ui=${encodeURIComponent(messageText)}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok ' + response.statusText);
+                        }
+                        return response.text(); // Assuming the response is text
+                    })
+                    .then(data => {
+                        console.log(data)
+                        // Assuming the assistant's response is in data.response
+                        addMessage('Roxy: ' + data, 'assistant-message');
+                        
+                    })
+                    .catch(error => {
+                        console.error('There has been a problem with your fetch operation:', error);
+                        addMessage('Roxy: Sorry, there was an error. Please try again.', 'assistant-message');
+                    });
+            }
+        });
+
+        
+
+        function addMessage(text, className) {
+            const msg = document.createElement('div');
+            msg.className = className;
+            msg.textContent = text;
+            messages.appendChild(msg);
+            messages.scrollTop = messages.scrollHeight; // Scroll to the bottom
+        }
+
+        function openChatbotWithMessage(message) {
+            chatContainer.style.display = 'block';
+            addMessage('Roxy: ' + message, 'assistant-message');
+            userInput.focus();
+        }
+
+        function closeChat() {
+            chatContainer.style.display = 'none';
+        }
+
+        function scrollToChat() {
+            chatContainer.style.display = 'block';
+            chatContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+        function sendMessage() {
+    const userInput = document.getElementById("userInput").value;
+    const messagesDiv = document.getElementById("messages");
+
+    // Adding user message
+    messagesDiv.innerHTML += `<div class="user-message">${userInput}</div>`;
+    
+    // Example bot response (this should be replaced with actual response handling)
+    const botResponse = "This is a sample bot response."; // Replace with actual bot response
+    messagesDiv.innerHTML += `<div class="bot-message">${botResponse}</div>`;
+
+    document.getElementById("userInput").value = ""; // Clear input
+}
+
+
+    </script>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>

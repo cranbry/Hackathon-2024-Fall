@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <nav>
+        <!-- Navigation Bar Content Here -->
+    </nav>
+
+    <h1>AI Assistant</h1>
+    
+    <!-- Chatbot Interface -->
+    <form id="dataForm">
+        <label for="userInput">Input:</label><br>
+        <textarea id="userInput" name="userInput" rows="5" cols="40" required></textarea><br><br>
+        <button type="submit">Submit</button>
+    </form>
+    <h2>Response:</h2>
+    <div id="chat-box"></div> <!-- Updated to display chat messages here -->
+
+    <!-- Link your chatbot JS file -->
+    <script src="/static/js/assistant.js"></script>
+</body>
+</html>
