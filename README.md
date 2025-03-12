@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# aif24
-=======
 # Hackathon-2024-Fall
 open source hackathon project. The Cool Kidz
 Installation and Setup
@@ -29,4 +26,3 @@ Run the application:
 bash
 Copy code
 python run.py
->>>>>>> e23b6fddb6073cb5a115e4922ed26abbfeccfb04
